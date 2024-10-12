@@ -19,14 +19,8 @@ export default function Dashboard() {
                             You're logged in!
                         </div>
 
-                        {/* Add the Projects link here */}
-                        <div className="mt-4">
-                            <Link 
-                                href={route('projects.index')} 
-                                className="text-blue-500 hover:underline">
-                                View Projects
-                            </Link>
-                        </div>
+                        
+                        
                     </div>
                 </div>
             </div>

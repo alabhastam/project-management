@@ -21,7 +21,7 @@ export default function TasksIndex({ tasks }) {
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+                    <div className="overflow-hidden bg-dark shadow-sm sm:rounded-lg ">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             <input
                                 type="text"
@@ -35,7 +35,7 @@ export default function TasksIndex({ tasks }) {
                                 <p>No tasks available.</p>
                             ) : (
                                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                    <thead className="bg-gray-50 dark:bg-gray-700">
+                                    <thead className="bg-dark-50 ">
                                         <tr>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
                                                 Name
@@ -70,9 +70,11 @@ export default function TasksIndex({ tasks }) {
                                                     {task.due_time}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                                    <button className="mx-1 btn btn-primary btn-sm">View</button>
-                                                    <button className="mx-1 btn btn-warning btn-sm">Edit</button>
-                                                    <button className="mx-1 btn btn-danger btn-sm">Delete</button>
+                                                    <button className="mx-1 my-1 btn btn-primary btn-sm">View</button>
+                                                    <br />
+                                                    <button className="mx-1 my-1 btn btn-warning btn-sm">Edit</button>
+                                                    <br />
+                                                    <button className="mx-1 my-1 btn btn-danger btn-sm">Delete</button>
                                                 </td>
                                             </tr>
                                         ))}

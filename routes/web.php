@@ -19,9 +19,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get("/tasks", [TaskController::class,'index'])
-    ->middleware(['auth'])
-    ->name('Tasks.index');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

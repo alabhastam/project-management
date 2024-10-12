@@ -14,10 +14,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
-
-        return Inertia::render('Projects/Index', [
-            'tasks' => $tasks
+        $tasks = Task::all(); // Ensure you have tasks in your database
+        return Inertia::render('Tasks/Index', [
+            'tasks' => $tasks,
         ]);
     }
 

@@ -4,10 +4,19 @@ import { Head } from '@inertiajs/react';
 
 export default function ProjectsIndex({ projects }) {
     const [searchQuery, setSearchQuery] = useState('');
+    const [sortField, setSortField] = useState('name'); // Default sort by name
+    const [sortOrder, setSortOrder] = useState('asc'); // Default sort order
 
     // Function to handle search input change
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
+    };
+
+    // Function to handle sorting
+    const handleSort = (field) => {
+        const newSortOrder = sortField === field && sortOrder === 'asc' ? 'desc' : 'asc';
+        setSortField(field);
+        setSortOrder(newSortOrder);
     };
 
     // Filter projects based on search query
@@ -15,6 +24,21 @@ export default function ProjectsIndex({ projects }) {
         project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         project.description.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    // Sort filtered projects
+    const sortedProjects = filteredProjects.sort((a, b) => {
+        const isAsc = sortOrder === 'asc';
+
+        if (sortField === 'name') {
+            return isAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+        }
+
+        if (sortField === 'date') {
+            return isAsc ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
+        }
+
+        return 0; // Default case (shouldn't hit)
+    });
 
     return (
         <AuthenticatedLayout
@@ -42,23 +66,29 @@ export default function ProjectsIndex({ projects }) {
                             </div>
 
                             {/* Projects Table */}
-                            {filteredProjects.length === 0 ? (
+                            {sortedProjects.length === 0 ? (
                                 <p>No projects available.</p>
                             ) : (
                                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                    <thead className="bg-dark-50 dark:bg-gray-700">
+                                    <thead className="bg-gray-50 dark:bg-gray-700">
                                         <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-                                                Name
+                                            <th
+                                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400 cursor-pointer"
+                                                onClick={() => handleSort('name')}
+                                            >
+                                                Name {sortField === 'name' && (sortOrder === 'asc' ? '🔼' : '🔽')}
                                             </th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
                                                 Description
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-                                                Status
+                                            <th
+                                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400 "
+                                                onClick={() => handleSort('date')}
+                                            >
+                                                Status 
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-                                                Date
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400 cursor-pointer">
+                                                Date {sortField === 'date' && (sortOrder === 'asc' ? '🔼' : '🔽')}
                                             </th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
                                                 Actions
@@ -66,7 +96,7 @@ export default function ProjectsIndex({ projects }) {
                                         </tr>
                                     </thead>
                                     <tbody className="bg-dark divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                                        {filteredProjects.map((project) => (
+                                        {sortedProjects.map((project) => (
                                             <tr key={project.id}>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
                                                     {project.name}

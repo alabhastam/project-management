@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 export default function Dashboard() {
     return (
@@ -17,6 +17,15 @@ export default function Dashboard() {
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             You're logged in!
+                        </div>
+
+                        {/* Add the Projects link here */}
+                        <div className="mt-4">
+                            <Link 
+                                href={route('projects.index')} 
+                                className="text-blue-500 hover:underline">
+                                View Projects
+                            </Link>
                         </div>
                     </div>
                 </div>

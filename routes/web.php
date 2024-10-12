@@ -10,12 +10,12 @@ use Inertia\Inertia;
 Route::redirect('/', '/dashboard' );
 
 Route::get("/dashboard/projects", [ProjectController::class,'index'])
-    ->middleware(['auth', 'Verified'])
+    ->middleware(['auth'])
     ->name('projects.index');
-    
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

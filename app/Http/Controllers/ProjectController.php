@@ -13,7 +13,11 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::all();
+
+        return inertia('Projects/Index', [
+            'projects'=>$projects
+        ]);
     }
 
     /**

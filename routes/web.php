@@ -1,12 +1,18 @@
 <?php
 
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::redirect('/', '/dashboard' );
 
+Route::get("/dashboard/projects", [ProjectController::class,'index'])
+    ->middleware(['auth', 'Verified'])
+    ->name('projects.index');
+    
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

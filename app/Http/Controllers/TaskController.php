@@ -6,6 +6,8 @@ use Inertia\Inertia;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class TaskController extends Controller
 {
@@ -14,7 +16,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all(); // Ensure you have tasks in your database
+        $tasks = Task::all();
         return Inertia::render('Tasks/Index', [
             'tasks' => $tasks,
         ]);
